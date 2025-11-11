@@ -1,0 +1,35 @@
+<header>
+  <h1>Factura <%= @invoice.series %>-<%= @invoice.number %></h1>
+  <p><strong>Emisor:</strong> <%= @invoice.issuer_name %> - NIT: <%= @invoice.issuer_nit %></p>
+  <p><strong>Receptor:</strong> <%= @invoice.receiver_name %> - NIT: <%= @invoice.receiver_nit %></p>
+  <p><strong>Fecha:</strong> <%= @invoice.issue_date %></p>
+</header>
+
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Descripción</th>
+      <th>Cantidad</th>
+      <th>Precio</th>
+      <th>Subtotal</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @invoice.line_items.each_with_index do |li, idx| %>
+      <tr>
+        <td><%= idx + 1 %></td>
+        <td><%= li.description %></td>
+        <td><%= li.quantity %></td>
+        <td><%= number_to_currency(li.price, unit: "COP ", precision: 2) %></td>
+        <td><%= number_to_currency(li.subtotal, unit: "COP ", precision: 2) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<footer>
+  <p>Subtotal: <%= number_to_currency(@invoice.subtotal, unit: "COP ", precision: 2) %></p>
+  <p>IVA: <%= number_to_currency(@invoice.vat, unit: "COP ", precision: 2) %></p>
+  <p><strong>Total: <%= number_to_currency(@invoice.total, unit: "COP ", precision: 2) %></strong></p>
+</footer>

@@ -1,0 +1,192 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-xl-7">
+      
+      <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+        <!-- Header del formulario -->
+        <div class="card-header text-white py-4" 
+             style="background: linear-gradient(135deg, #0d6efd 0%, #6610f2 100%);">
+          
+          <!-- Logo de la empresa -->
+          <div class="text-center mb-3">
+            <%= image_tag "double_v_partners_logo.jpg", alt: "FactuMarket Logo", class: "rounded-3 shadow-sm", style: "max-width: 80px; height: auto;" %>
+          </div>
+          
+          <h2 class="mb-0 fw-bold text-center">
+            💼 Nueva Factura
+          </h2>
+        </div>
+
+        <div class="card-body p-4 p-md-5" style="background-color: #f8f9fa;">
+          
+          <%= form_with(model: invoice, class: "needs-validation", novalidate: true) do |form| %>
+            
+            <!-- Errores -->
+            <% if invoice.errors.any? %>
+              <div class="alert alert-danger alert-dismissible fade show rounded-3 mb-4" role="alert">
+                <div class="d-flex align-items-start">
+                  <i class="bi bi-exclamation-triangle-fill me-2 fs-4"></i>
+                  <div>
+                    <h5 class="alert-heading mb-2">
+                      <%= pluralize(invoice.errors.count, "error") %> impidieron guardar esta factura:
+                    </h5>
+                    <ul class="mb-0 ps-3">
+                      <% invoice.errors.each do |error| %>
+                        <li><%= error.full_message %></li>
+                      <% end %>
+                    </ul>
+                  </div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            <% end %>
+
+            <!-- Sección: Información de la Factura -->
+            <div class="mb-4">
+              <h5 class="fw-bold mb-3 pb-2 border-bottom" style="color: #0d6efd;">
+                📄 Información de la Factura
+              </h5>
+              
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <%= form.label :series, "Serie", class: "form-label fw-semibold" %>
+                  <%= form.text_field :series, class: "form-control form-control-lg", placeholder: "Ej: A001" %>
+                </div>
+
+                <div class="col-md-6">
+                  <%= form.label :number, "Número", class: "form-label fw-semibold" %>
+                  <%= form.number_field :number, class: "form-control form-control-lg", placeholder: "Ej: 12345" %>
+                </div>
+
+                <div class="col-12">
+                  <%= form.label :issue_date, "Fecha de Emisión", class: "form-label fw-semibold" %>
+                  <%= form.date_field :issue_date, class: "form-control form-control-lg" %>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sección: Emisor -->
+            <div class="mb-4">
+              <h5 class="fw-bold mb-3 pb-2 border-bottom" style="color: #6610f2;">
+                🏢 Datos del Emisor
+              </h5>
+              
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <%= form.label :issuer_nit, "NIT del Emisor", class: "form-label fw-semibold" %>
+                  <%= form.text_field :issuer_nit, class: "form-control form-control-lg", placeholder: "Ej: 900123456-7" %>
+                </div>
+
+                <div class="col-md-6">
+                  <%= form.label :issuer_name, "Nombre del Emisor", class: "form-label fw-semibold" %>
+                  <%= form.text_field :issuer_name, class: "form-control form-control-lg", placeholder: "Ej: FactuMarket S.A." %>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sección: Receptor -->
+            <div class="mb-4">
+              <h5 class="fw-bold mb-3 pb-2 border-bottom" style="color: #0d6efd;">
+                👤 Datos del Receptor
+              </h5>
+              
+              <div class="row g-3">
+                <div class="col-12">
+                  <%= form.label :receiver_id, "Seleccionar Cliente", class: "form-label fw-semibold" %>
+                  <%= form.select :receiver_id,
+                    (@clients || []).map { |c| [c["name"], c["id"]] },
+                    { prompt: "🔍 Seleccione un cliente" },
+                    class: "form-select form-select-lg" %>
+                </div>
+
+                <div class="col-12">
+                  <%= form.label :receiver_nit, "NIT del Receptor", class: "form-label fw-semibold" %>
+                  <%= form.text_field :receiver_nit, class: "form-control form-control-lg", placeholder: "Ej: 800987654-3" %>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sección: Valores -->
+            <div class="mb-4">
+              <h5 class="fw-bold mb-3 pb-2 border-bottom" style="color: #6610f2;">
+                💰 Valores
+              </h5>
+              
+              <div class="row g-3">
+                <div class="col-md-4">
+                  <%= form.label :subtotal, "Subtotal", class: "form-label fw-semibold" %>
+                  <div class="input-group input-group-lg">
+                    <span class="input-group-text">$</span>
+                    <%= form.number_field :subtotal, step: 0.01, class: "form-control", placeholder: "0.00" %>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <%= form.label :vat, "IVA", class: "form-label fw-semibold" %>
+                  <div class="input-group input-group-lg">
+                    <span class="input-group-text">$</span>
+                    <%= form.number_field :vat, step: 0.01, class: "form-control", placeholder: "0.00" %>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <%= form.label :total, "Total", class: "form-label fw-semibold" %>
+                  <div class="input-group input-group-lg">
+                    <span class="input-group-text fw-bold" style="background-color: #ffc107;">$</span>
+                    <%= form.number_field :total, step: 0.01, class: "form-control fw-bold", placeholder: "0.00" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sección: Estado -->
+            <div class="mb-4">
+              <h5 class="fw-bold mb-3 pb-2 border-bottom" style="color: #0d6efd;">
+                📊 Estado
+              </h5>
+              
+              <%= form.label :status, "Estado de la Factura", class: "form-label fw-semibold" %>
+              <%= form.text_field :status, class: "form-control form-control-lg", placeholder: "Ej: Pendiente, Pagada, Anulada" %>
+            </div>
+
+            <!-- Botones de acción -->
+            <div class="d-flex gap-3 justify-content-end pt-4 border-top">
+              <%= link_to "Cancelar", invoices_path, class: "btn btn-outline-secondary btn-lg px-5" %>
+              <%= form.submit "Guardar Factura", class: "btn btn-lg px-5 fw-bold text-white shadow", 
+                  style: "background: linear-gradient(135deg, #0d6efd 0%, #6610f2 100%);" %>
+            </div>
+            
+          <% end %>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<style>
+/* Animación sutil en los inputs al hacer focus */
+.form-control:focus, .form-select:focus {
+  border-color: #6610f2;
+  box-shadow: 0 0 0 0.25rem rgba(102, 16, 242, 0.25);
+}
+
+/* Hover en el botón de submit */
+.btn[type="submit"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(102, 16, 242, 0.4) !important;
+  transition: all 0.3s ease;
+}
+
+/* Estilo para inputs de dinero */
+.input-group-text {
+  background-color: #e9ecef;
+  font-weight: 600;
+}
+
+/* Card hover effect */
+.card {
+  transition: transform 0.3s ease;
+}
+</style>

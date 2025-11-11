@@ -1,0 +1,70 @@
+<div class="container-fluid min-vh-100 d-flex flex-column justify-content-center align-items-center text-center position-relative overflow-hidden" 
+     style="background: linear-gradient(135deg, #0d6efd 0%, #6610f2 100%);">
+
+  <!-- Efecto decorativo de fondo -->
+  <div class="position-absolute top-0 start-0 w-100 h-100" 
+       style="background: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.08), transparent 60%),
+              radial-gradient(circle at 80% 70%, rgba(255,255,255,0.1), transparent 50%); z-index: 0;">
+  </div>
+
+  <div class="text-white p-5 rounded-4 shadow-lg position-relative" 
+       style="backdrop-filter: blur(12px); background-color: rgba(13, 35, 85, 0.6); max-width: 780px; z-index: 1; animation: fadeIn 1.2s ease-in-out; border: 1px solid rgba(255,255,255,0.2);">
+    
+    <!-- Logo de la empresa -->
+    <div class="mb-4">
+      <%= image_tag "double_v_partners_logo.jpg", alt: "FactuMarket Logo", class: "img-fluid rounded-3 shadow-lg", style: "max-width: 200px; animation: fadeIn 1.5s ease-in-out;" %>
+    </div>
+
+    <!-- Título -->
+    <h1 class="display-3 fw-bold mb-3">
+      💼 <span class="text-warning" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.5);">FactuMarket</span> <span style="text-shadow: 2px 2px 8px rgba(0,0,0,0.5);">S.A.</span>
+    </h1>
+
+    <!-- Subtítulo -->
+    <p class="lead mb-5 fs-4 fw-medium" style="text-shadow: 1px 1px 4px rgba(0,0,0,0.6); line-height: 1.6;">
+      La plataforma inteligente para gestionar tu <strong class="text-warning">facturación</strong>, tus <strong class="text-warning">clientes</strong> y el <strong class="text-warning">crecimiento</strong> de tu empresa 🚀
+    </p>
+
+    <!-- Botones de acción -->
+   <div class="d-flex justify-content-center flex-wrap gap-3 mb-4">
+  <%= link_to "✨ Generar factura electrónica",
+              new_invoice_path,
+              class: "btn btn-warning btn-lg fw-bold shadow-lg px-5 py-3",
+              style: "color: #000;" %>
+
+    <a href="#" 
+      class="btn btn-outline-light btn-lg fw-bold px-5 py-3 border-3"
+      style="background-color: rgba(255,255,255,0.1); backdrop-filter: blur(8px);">
+      Saber más
+    </a>
+  </div>
+
+
+    <!-- Beneficios rápidos -->
+    <div class="d-flex justify-content-center gap-5 flex-wrap fs-5 mb-4 fw-semibold" style="text-shadow: 1px 1px 3px rgba(0,0,0,0.5);">
+      <div><i class="bi bi-shield-check text-success me-2"></i>Seguro</div>
+      <div><i class="bi bi-speedometer2 text-info me-2"></i>Rápido</div>
+      <div><i class="bi bi-bar-chart-line text-warning me-2"></i>Eficiente</div>
+    </div>
+
+    <!-- Footer -->
+    <hr class="border-light opacity-50 my-4 w-75 mx-auto">
+    <small class="fw-semibold" style="color: rgba(255,255,255,0.9); text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">
+      © <%= Time.current.year %> <strong>FactuMarket S.A.</strong> — Todos los derechos reservados.
+    </small>
+  </div>
+</div>
+
+<!-- Animación suave -->
+<style>
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+</style>

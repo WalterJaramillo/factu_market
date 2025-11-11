@@ -1,0 +1,16 @@
+default: &default
+  adapter: oracle_enhanced
+  username: FACTU_MARKET
+  password: Factu123
+  host: localhost
+  port: 1521
+  database: XEPDB1
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default

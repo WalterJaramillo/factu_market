@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Factura <%= @invoice.number %></title>
+</head>
+<body style="margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f6f9;">
+  
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f4f6f9; padding: 40px 20px;">
+    <tr>
+      <td align="center">
+        
+        <!-- Contenedor principal -->
+        <table width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+          
+          <!-- Header con gradiente -->
+          <tr>
+            <td style="background: linear-gradient(135deg, #0d6efd 0%, #6610f2 100%); padding: 40px 30px; text-align: center;">
+              
+              <!-- Logo de la empresa -->
+              <%= image_tag "double_v_partners_logo.jpg", alt: "FactuMarket Logo", class: "rounded-3 shadow-sm", style: "max-width: 80px; height: auto;" %>
+              
+              <h1 style="margin: 0; color: #ffffff; font-size: 32px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">
+                💼 <span style="color: #ffc107;">FactuMarket</span> S.A.
+              </h1>
+              <p style="margin: 10px 0 0 0; color: rgba(255,255,255,0.9); font-size: 14px; font-weight: 500;">
+                Tu socio en facturación inteligente
+              </p>
+            </td>
+          </tr>
+
+          <!-- Contenido principal -->
+          <tr>
+            <td style="padding: 40px 30px;">
+              
+              <!-- Saludo personalizado -->
+              <h2 style="color: #1a1a1a; font-size: 24px; margin: 0 0 20px 0; font-weight: 600;">
+                ¡Hola, <%= @client_name %>! 👋
+              </h2>
+              
+              <p style="color: #555; font-size: 16px; line-height: 1.6; margin: 0 0 25px 0;">
+                Nos complace informarte que tu factura ha sido generada exitosamente. A continuación, encontrarás los detalles de tu transacción:
+              </p>
+
+              <!-- Tarjeta de información de la factura -->
+              <table width="100%" cellpadding="0" cellspacing="0" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 12px; border-left: 5px solid #0d6efd; margin: 25px 0;">
+                <tr>
+                  <td style="padding: 25px;">
+                    
+                    <!-- Número de factura -->
+                    <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 15px;">
+                      <tr>
+                        <td style="color: #666; font-size: 14px; font-weight: 600;">
+                          📄 Número de Factura:
+                        </td>
+                        <td align="right" style="color: #0d6efd; font-size: 18px; font-weight: bold;">
+                          #<%= @invoice.number %>
+                        </td>
+                      </tr>
+                    </table>
+
+                    <!-- Fecha de emisión -->
+                    <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 15px;">
+                      <tr>
+                        <td style="color: #666; font-size: 14px; font-weight: 600;">
+                          📅 Fecha de Emisión:
+                        </td>
+                        <td align="right" style="color: #333; font-size: 15px; font-weight: 600;">
+                          <%= @invoice.issue_date.strftime("%d/%m/%Y") %>
+                        </td>
+                      </tr>
+                    </table>
+
+                    <!-- Separador -->
+                    <hr style="border: none; border-top: 2px dashed #dee2e6; margin: 20px 0;">
+
+                    <!-- Total a pagar -->
+                    <table width="100%" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="color: #333; font-size: 16px; font-weight: bold;">
+                          💰 Total a Pagar:
+                        </td>
+                        <td align="right" style="background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%); color: #000; font-size: 24px; font-weight: bold; padding: 10px 20px; border-radius: 8px;">
+                          <%= number_to_currency(@invoice.total, unit: "$", separator: ",", delimiter: ".") %>
+                        </td>
+                      </tr>
+                    </table>
+
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Mensaje adicional -->
+              <p style="color: #555; font-size: 15px; line-height: 1.6; margin: 25px 0 0 0;">
+                El documento completo está adjunto a este correo. Si tienes alguna pregunta o necesitas asistencia, no dudes en contactarnos.
+              </p>
+
+            </td>
+          </tr>
+
+          <!-- Botón de acción (opcional) -->
+          <tr>
+            <td style="padding: 0 30px 30px 30px; text-align: center;">
+              <a href="#" style="display: inline-block; background: linear-gradient(135deg, #0d6efd 0%, #6610f2 100%); color: #ffffff; text-decoration: none; padding: 15px 40px; border-radius: 30px; font-size: 16px; font-weight: bold; box-shadow: 0 4px 15px rgba(13,110,253,0.3);">
+                📥 Descargar Factura
+              </a>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="background-color: #f8f9fa; padding: 30px; text-align: center; border-top: 3px solid #e9ecef;">
+              
+              <p style="color: #666; font-size: 14px; margin: 0 0 15px 0; font-weight: 600;">
+                ¿Necesitas ayuda?
+              </p>
+              
+              <table width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td align="center">
+                    <table cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="padding: 0 15px;">
+                          <a href="mailto:soporte@factumarket.com" style="color: #0d6efd; text-decoration: none; font-size: 14px;">
+                            📧 soporte@factumarket.com
+                          </a>
+                        </td>
+                        <td style="padding: 0 15px; border-left: 2px solid #dee2e6;">
+                          <a href="tel:+573001234567" style="color: #0d6efd; text-decoration: none; font-size: 14px;">
+                            📞 +57 300 123 4567
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+
+              <hr style="border: none; border-top: 1px solid #dee2e6; margin: 20px 0;">
+
+              <p style="color: #999; font-size: 12px; margin: 0; line-height: 1.5;">
+                © <%= Time.current.year %> <strong style="color: #666;">FactuMarket S.A.</strong><br>
+                Todos los derechos reservados.<br>
+                <span style="color: #ccc;">Este es un correo automático, por favor no responder.</span>
+              </p>
+
+            </td>
+          </tr>
+
+        </table>
+        
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>

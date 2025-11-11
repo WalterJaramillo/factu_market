@@ -1,0 +1,25 @@
+# /my_rails_app/config/mongoid.yml
+development:
+  clients:
+    default:
+      uri: <%= ENV.fetch("MONGODB_URI", "mongodb://localhost:27017/rails_audit_db_development") %>
+  options:
+    # Genera _id como ObjectId por defecto
+    #use_activesupport_time_zone: true
+    log_level: :warn
+
+test:
+  clients:
+    default:
+      uri: <%= ENV.fetch("MONGODB_URI", "mongodb://localhost:27017/rails_audit_db_test") %>
+  options:
+    #use_activesupport_time_zone: true
+    log_level: :warn
+
+production:
+  clients:
+    default:
+      uri: <%= ENV.fetch("MONGODB_URI") %>
+  options:
+    #use_activesupport_time_zone: true
+    log_level: :warn
